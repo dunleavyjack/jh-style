@@ -10,6 +10,8 @@ type Styles = 1 | 2 | 3;
 
 export const StyleSelector = () => {
     const [style, setStyle] = useState<number>(3);
+    const [previousStyle, setPreviousStyle] = useState<number>(3);
+    const [disabled, setDisabled] = useState(false);
 
     const renderCurrentStyle = (currentStyle: number) => {
         switch (currentStyle) {
@@ -23,22 +25,33 @@ export const StyleSelector = () => {
     };
 
     const chooseStyle = () => {
-        const interval = setInterval(() => {
-            const newRandomNumber = Math.floor(Math.random() * 3) + 1; // Generates a random number between 0 and 9
-            setStyle(newRandomNumber);
-        }, 200);
+        const incrementNumber = () => {
+            setStyle((style) => (style < 3 ? style + 1 : 1));
+        };
 
-        setTimeout(() => {
+        const randomTime = Math.floor(Math.random() * 2000) + 2000;
+
+        setDisabled(true);
+
+        const timeout = setTimeout(() => {
+            setDisabled(false);
             clearInterval(interval);
-            const finalNumber = Math.floor(Math.random() * 3) + 1; // Generates a final random number after 5 seconds
-            setStyle(finalNumber);
-        }, Math.floor(Math.random() * 5000));
+        }, randomTime);
+
+        const interval = setInterval(incrementNumber, 200);
+
+        return () => {
+            clearInterval(interval);
+            clearTimeout(timeout);
+        };
     };
 
     return (
         <div className="page">
             <div className="style">{renderCurrentStyle(style)}</div>
-            <button onClick={chooseStyle}>DESTINY</button>
+            <button onClick={chooseStyle} disabled={disabled}>
+                DESTINY
+            </button>
         </div>
     );
 };
