@@ -29,7 +29,7 @@ export const StyleSelector = () => {
             setStyle((style) => (style < 3 ? style + 1 : 1));
         };
 
-        const randomTime = Math.floor(Math.random() * 1000) + 500;
+        const randomTime = Math.floor(Math.random() * 1500) + 1000;
 
         setDisabled(true);
 
