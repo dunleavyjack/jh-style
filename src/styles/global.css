@@ -3,7 +3,7 @@ body{
     overflow: hidden;
 }
 
-.page {
+main {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,11 +12,8 @@ body{
     flex-direction: column;
 }
 
-.style {
-    height: 50vw,
-}
-
-.style {
+main section {
+    height: 50vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -24,7 +21,7 @@ body{
     align-items: center;
 }
 
-.style img {
+main section img {
     max-width: 100%;
     max-height: 100%;
 }
