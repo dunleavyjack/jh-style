@@ -1,5 +1,7 @@
 # JH Style (A Mini Web App)
 
+![]('../../src/assets/jh-style.gif)
+
 This project was a quick and dirty React app to help my gf choose an outfit for the night. It's not anything more than that!
 
 She drew three potential outfits and I built a single page web app to randomize her outfits for destiny to decide.
