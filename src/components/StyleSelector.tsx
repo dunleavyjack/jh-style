@@ -1,57 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import '../styles/global.css';
+import { useRandomStyle } from '../hooks/useRandomStyle';
 import styleOne from '../assets/style1.png';
 import styleTwo from '../assets/style2.png';
 import styleThree from '../assets/style3.png';
-import ArrowLeft from '../assets/circle-arrow-left-solid.svg';
-import ArrowRight from '../assets/circle-arrow-right-solid.svg';
-import '../styles/global.css';
-
-type Styles = 1 | 2 | 3;
+import { DESTINY } from '../constants';
 
 export const StyleSelector = () => {
-    const [style, setStyle] = useState<number>(3);
-    const [previousStyle, setPreviousStyle] = useState<number>(3);
-    const [disabled, setDisabled] = useState(false);
+    const { currentStyle, randomizeStyle, isRandomizeButtonDisabled } =
+        useRandomStyle();
 
+    /**
+     * Accepts a number representing a style and returns an image for that style.
+     * @param currentStyle A number representing one of three styles.
+     * @returns The image representing the current style.
+     */
     const renderCurrentStyle = (currentStyle: number) => {
         switch (currentStyle) {
             case 1:
-                return <img src={styleOne} alt="style" />;
+                return <img src={styleOne} alt="The current style" />;
             case 2:
-                return <img src={styleTwo} alt="style" />;
+                return <img src={styleTwo} alt="The current style" />;
             case 3:
-                return <img src={styleThree} alt="style" />;
+                return <img src={styleThree} alt="The current style" />;
         }
     };
 
-    const chooseStyle = () => {
-        const incrementNumber = () => {
-            setStyle((style) => (style < 3 ? style + 1 : 1));
-        };
-
-        const randomTime = Math.floor(Math.random() * 1500) + 1000;
-
-        setDisabled(true);
-
-        const timeout = setTimeout(() => {
-            setDisabled(false);
-            clearInterval(interval);
-        }, randomTime);
-
-        const interval = setInterval(incrementNumber, 150);
-
-        return () => {
-            clearInterval(interval);
-            clearTimeout(timeout);
-        };
-    };
-
     return (
-        <div className="page">
-            <div className="style">{renderCurrentStyle(style)}</div>
-            <button onClick={chooseStyle} disabled={disabled}>
-                DESTINY
+        <main>
+            <section>{renderCurrentStyle(currentStyle)}</section>
+            <button
+                onClick={randomizeStyle}
+                disabled={isRandomizeButtonDisabled}
+            >
+                {DESTINY}
             </button>
-        </div>
+        </main>
     );
 };
